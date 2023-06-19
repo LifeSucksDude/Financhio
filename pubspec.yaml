@@ -37,6 +37,12 @@ dependencies:
   cupertino_icons: ^1.0.2
   introduction_screen: ^3.1.8
   smooth_page_indicator: ^1.1.0
+  firebase_core: ^2.14.0
+  firebase_auth: ^4.6.3
+  flutter_riverpod: ^2.3.6
+  get: ^4.6.5
+  cloud_firestore: ^4.8.1
+  shared_preferences: ^2.1.2
 
 dev_dependencies:
   flutter_test:
@@ -60,7 +66,7 @@ flutter:
   # the material Icons class.
   uses-material-design: true
   assets:
-    - asset/images/
+    - assets/images/
 
   # To add assets to your application, add an assets section, like this:
   # assets:
