@@ -1,13 +1,13 @@
 import 'package:financhio/Theme/pallete.dart';
 import 'package:financhio/constants/imageconstant.dart';
 import 'package:financhio/constants/uiconstant.dart';
-import 'package:financhio/common/widegets/custextf.dart';
+import 'package:financhio/common/widegets/forLogin/custextf.dart';
 import 'package:financhio/features/authfeatures/controller/authcontroller.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../common/widegets/buttontype.dart';
+import '../../../common/widegets/forLogin/buttontype.dart';
 import 'loginPageView.dart';
 
 class SignUpPageView extends ConsumerStatefulWidget {

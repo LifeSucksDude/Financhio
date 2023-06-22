@@ -2,6 +2,7 @@
 import 'package:financhio/common/widegets/error_page.dart';
 import 'package:financhio/common/widegets/loading.dart';
 import 'package:financhio/features/authfeatures/repositoris/auth_repo.dart';
+import 'package:financhio/features/forAddingProfile/addProfile.dart';
 import 'package:financhio/firebase_options.dart';
 import 'package:financhio/homeview.dart';
 import 'package:financhio/screens/welcomescreens/onboardingPage.dart';
@@ -40,9 +41,9 @@ class MyApp extends ConsumerWidget {
         useMaterial3: true,
       ),
       
-      home: 
+      home: UserInformation()
       
-      ref.watch(authProvider ).when(data: (user){
+    /*  ref.watch(authProvider ).when(data: (user){
         if( inintScreen==null){
           print(inintScreen);
           return   OnBoardingScreens();
@@ -54,7 +55,7 @@ class MyApp extends ConsumerWidget {
           return const HomePage();
         }
 
-      }, error: (error,stackTrace)=>ErrorPage(error: error.toString()), loading:()=> const LoadingPage()) ,
+      }, error: (error,stackTrace)=>ErrorPage(error: error.toString()), loading:()=> const LoadingPage()) ,*/
     );
   }
 }

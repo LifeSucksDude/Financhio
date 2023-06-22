@@ -47,5 +47,12 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>This is needed to upload your photo to the backend of this app</string>
+	<key>NSCameraUsageDespcription</key>
+	<string>Say hi to your future</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>This is needed to upload your photo to the backend of this app</string>
+
 </dict>
 </plist>

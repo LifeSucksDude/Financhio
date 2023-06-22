@@ -5,8 +5,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../Theme/pallete.dart';
 import '../../../constants/uiconstant.dart';
-import '../../../common/widegets/buttontype.dart';
-import '../../../common/widegets/custextf.dart';
+import '../../../common/widegets/forLogin/buttontype.dart';
+import '../../../common/widegets/forLogin/custextf.dart';
 import '../controller/authcontroller.dart';
 
 class LoginPageView extends ConsumerStatefulWidget {
