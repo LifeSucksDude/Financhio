@@ -54,7 +54,18 @@ class _OnBoardingScreensState extends State<OnBoardingScreens> {
       curve: Curves.easeIn,
     );
                   },
-                  child:const  Text('skip'),
+                  child:Container(
+                    height: 30,
+                    width: 50,
+                  
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: const Color.fromARGB(255, 0, 0, 0)
+                    ),
+                    child:  Padding(
+                      padding: const EdgeInsets.only(left:8.0,top: 3),
+                      child: Text('skip',style: TextStyle(color: const Color.fromARGB(255, 255, 255, 255),fontSize: 16),),
+                    ))
                 ),
                 SmoothPageIndicator(controller: _controller, count: 3),
                 onLastPage
@@ -75,7 +86,8 @@ class _OnBoardingScreensState extends State<OnBoardingScreens> {
                         },
                         
                          child: Container(
-                           
+                            height: 35,
+                            width: 35,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
                               color: Colors.black

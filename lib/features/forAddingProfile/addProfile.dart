@@ -3,19 +3,22 @@ import 'dart:io';
 import 'package:financhio/common/utils/utils.dart';
 import 'package:financhio/common/widegets/forAppOverall/clipper.dart';
 import 'package:financhio/common/widegets/forAppOverall/customTextFieldApp.dart';
+import 'package:financhio/features/authfeatures/controller/authcontroller.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 
 
-class UserInformation extends StatefulWidget {
+class UserInformation extends ConsumerStatefulWidget {
+  static route()=> MaterialPageRoute(builder: (context)=>const UserInformation());
   const UserInformation({super.key});
 
   @override
-  State<UserInformation> createState() => _UserInformationState();
+  ConsumerState<UserInformation> createState() => _UserInformationState();
 }
 
-class _UserInformationState extends State<UserInformation> {
+class _UserInformationState extends ConsumerState<UserInformation> {
   final TextEditingController nameController = TextEditingController();
   File? image;
   @override
@@ -28,6 +31,12 @@ class _UserInformationState extends State<UserInformation> {
     setState(() {
       
     });
+  }
+  void StoreUserData()async{
+   String name=nameController.text.trim();
+   if(name.isNotEmpty){
+    ref.read(authControllerProvider).saveUserDataToFirebase(context, name, image!);
+   }
   }
   Widget build(BuildContext context) {
     return Scaffold(
@@ -96,7 +105,7 @@ class _UserInformationState extends State<UserInformation> {
           child: Padding(
             padding: const EdgeInsets.only(left: 16),
             child: Container(
-              height: 80,
+              height: 70,
               width: 200,
               decoration: BoxDecoration(
                   color: const Color.fromARGB(255, 0, 0, 0),
@@ -109,10 +118,12 @@ class _UserInformationState extends State<UserInformation> {
                         style: TextStyle(color: Colors.white)),
                   ),
                   GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      StoreUserData();
+                    },
                     child: Container(
-                      height: 50,
-                      width: 50,
+                      height: 45,
+                      width: 45,
                       decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(20)),
@@ -125,7 +136,7 @@ class _UserInformationState extends State<UserInformation> {
           ),
         ),
         SizedBox(
-          height: 60,
+          height: 70,
         ),
         Expanded(
           child: Container(
