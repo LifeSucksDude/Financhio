@@ -5,14 +5,14 @@ class UserModel {
   final String name;
   final String uid;
   final String profilePic;
-  final List<String> bankNames;
+
   final String? phoneNumber;
   final String email;
   UserModel({
     required this.name,
     required this.uid,
     required this.profilePic,
-    required this.bankNames,
+    
     this.phoneNumber,
     required this.email,
   });
@@ -25,7 +25,7 @@ class UserModel {
       'name': name,
       'uid': uid,
       'profilePic': profilePic,
-      'bankNames': bankNames,
+    
       'phoneNumber': phoneNumber,
       'email': email,
     };
@@ -36,7 +36,7 @@ class UserModel {
       name: map['name'] ?? '',
       uid: map['uid'] ?? '',
       profilePic: map['profilePic']  ??'',
-      bankNames: List<String>.from(map['bankNames'] ),
+  
       phoneNumber: map['phoneNumber'] != null ? map['phoneNumber'] ?? '' : null,
       email: map['email'] as String,
     );
