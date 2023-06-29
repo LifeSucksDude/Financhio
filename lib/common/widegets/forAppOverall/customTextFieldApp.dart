@@ -18,27 +18,32 @@ final   String hintText;
   @override
   Widget build(BuildContext context) {
       return Padding(
-        padding: EdgeInsets.only(left: 16,right: 16,top: 24,bottom: 24),
-        child: TextFormField(
-        controller: controller,
-        decoration: InputDecoration(
-           focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(16),
-            borderSide:  BorderSide(color: focusedBOrderColor,width: 3)
-      
+        padding: EdgeInsets.only(left: 16,right: 16),
+        child: Container(
+          height: 56,
+          child: Center(
+            child: TextFormField(
+            controller: controller,
+            decoration: InputDecoration(
+               focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(16),
+                borderSide:  BorderSide(color: focusedBOrderColor,width: 2)
+                
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(16),
+                borderSide: BorderSide(color: enabledBorderColor,width: 1),
+              ),
+              contentPadding: const EdgeInsets.symmetric(horizontal: 16,vertical: 27),
+              hintText: hintText,
+              hintStyle: const TextStyle(fontSize: 18),
+            fillColor: backgroundColor,
+            filled: true
+            ),
+                
+              ),
           ),
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(16),
-            borderSide: BorderSide(color: enabledBorderColor,width: 2),
-          ),
-          contentPadding: const EdgeInsets.symmetric(horizontal: 16,vertical: 27),
-          hintText: hintText,
-          hintStyle: const TextStyle(fontSize: 18),
-        fillColor: backgroundColor,
-        filled: true
         ),
-      
-          ),
       );
     
   }

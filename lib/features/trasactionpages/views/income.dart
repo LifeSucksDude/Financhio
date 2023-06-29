@@ -1,23 +1,23 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:financhio/common/utils/utils.dart';
 import 'package:financhio/common/widegets/dropdownpage.dart';
 import 'package:financhio/common/widegets/forAppOverall/customTextFieldApp.dart';
 import 'package:financhio/features/trasactionpages/controller/addtransactionController.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../common/utils/utils.dart';
 import '../../../common/widegets/forAppOverall/customButton.dart';
 
-class AddExpense extends ConsumerStatefulWidget {
-  const AddExpense({super.key});
+class AddIncome extends ConsumerStatefulWidget {
+  const AddIncome({super.key});
 
   @override
-  ConsumerState<AddExpense> createState() => _AddExpenseState();
+  ConsumerState<AddIncome> createState() => _AddIncomeState();
 }
 
-class _AddExpenseState extends ConsumerState<AddExpense> {
+class _AddIncomeState extends ConsumerState<AddIncome> {
   String? selectedBank;
   String? selectedCategory;
   File? image;
@@ -25,7 +25,7 @@ class _AddExpenseState extends ConsumerState<AddExpense> {
   Stream<QuerySnapshot<Map<String, dynamic>>>? snapshotStream;
    List<String> bankList = [];
 
-  final TextEditingController addExpense = TextEditingController();
+  final TextEditingController addIncome = TextEditingController();
   final TextEditingController addDescription = TextEditingController();
   String? selectedValue;
  
@@ -47,15 +47,21 @@ class _AddExpenseState extends ConsumerState<AddExpense> {
     });
   }
   void storeTheTransaction(){
-    String amount=addExpense.text;
-    String type='Expense';
-    String bankName='$selectedBank';
-    String category='$selectedCategory';
-    String description=addDescription.text;
+    String amount=addIncome.text.trim();
+    String type='Income';
+    String bankName='$selectedBank'.trim();
+    String category='$selectedCategory'.trim();
+    String description=addDescription.text.trim();
     File? attachment=image;
     DateTime dateTime = DateTime.now();
   String datetimeString = dateTime.toString();
-   ref.read(addTransactionProvider).addTransaction(type, attachment, context, category, bankName, datetimeString, description, amount);
+  
+    if(amount.isNotEmpty && category.isNotEmpty && bankName.isNotEmpty){
+   ref.read(addTransactionProvider).addTransaction(type, attachment, context, category, bankName, datetimeString, description, amount);}
+   else{
+    showSnackBar(context: context, content: "Can not have amount, category, bankname as empty strings");
+   }
+  
 
   }
  void selelctImage()async{
@@ -64,13 +70,14 @@ class _AddExpenseState extends ConsumerState<AddExpense> {
    
  });
  }
+ 
   Widget build(BuildContext context) {
     
     return Scaffold(
-      backgroundColor: Colors.red,
+      backgroundColor: Colors.green,
       appBar: AppBar(
         title: const Text(
-          "Expense",
+          "Income",
           style: TextStyle(
               fontSize: 18, color: Colors.white, fontWeight: FontWeight.w600),
         ),
@@ -78,7 +85,7 @@ class _AddExpenseState extends ConsumerState<AddExpense> {
           Icons.arrow_back_ios_new,
           color: Colors.white,
         ),
-        backgroundColor: Colors.red,
+        backgroundColor: Colors.green,
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -104,7 +111,7 @@ class _AddExpenseState extends ConsumerState<AddExpense> {
             padding: const EdgeInsets.only(left: 16.0),
             child: TextField(
               style: TextStyle(fontSize: 50, color: Colors.white),
-              controller: addExpense,
+              controller: addIncome,
               decoration: InputDecoration(
                 hintText: '0.00',
                 hintStyle: TextStyle(fontSize: 50, color: Colors.white),
@@ -130,13 +137,18 @@ class _AddExpenseState extends ConsumerState<AddExpense> {
                 MyDropdownWidget(
                   onItemSelected: (value){
                     selectedCategory=value;
+                    print(value);
+                    print(selectedCategory);
+                    setState(() {
+                      
+                    });
                   },
-                  hintText: 'Category',
+                  hintText: selectedCategory==null?'Category':'$selectedCategory',
                   dropdownItems: [
-                  'Food',
-                  'Technology',
-                  'Fees',
-                  'Shopping',
+                  'Job',
+                  'Startup',
+                  'Tutorials',
+                  'Skills',
                   'Others'
                 ], textColor: const Color.fromARGB(255, 73, 73, 73)),
                 SizedBox(
@@ -171,12 +183,12 @@ class _AddExpenseState extends ConsumerState<AddExpense> {
                             )
                             
                            ),
-                           child: Center(child: Row(
+                           child: Center(child: image==null? Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [Icon(Icons.attach_file),
                             SizedBox(width: 5,),
                             Text('Add attachment')
-                            ],)
+                            ],):Text('Attachemnt added')
                             ),
                           ),
                         ),
@@ -186,9 +198,9 @@ class _AddExpenseState extends ConsumerState<AddExpense> {
                 CustomButton(
                     backgroundColor: const Color.fromRGBO(98, 63, 255, 1),
                     onTap: () {
-                    storeTheTransaction();
+                       storeTheTransaction();
                     },
-                    text: 'Add Expense',
+                    text: 'Add Income',
                     textColor: Colors.white),
                 SizedBox(
                   height: 20,

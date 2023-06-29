@@ -1,24 +1,11 @@
 
-import 'package:financhio/common/widegets/done_page.dart';
-import 'package:financhio/common/widegets/error_page.dart';
-import 'package:financhio/common/widegets/loading.dart';
-import 'package:financhio/features/authfeatures/controller/authcontroller.dart';
-import 'package:financhio/features/authfeatures/repositoris/auth_repo.dart';
-import 'package:financhio/features/forAddingProfile/addProfile.dart';
 import 'package:financhio/features/forAddingProfile/navAddAccount.dart';
-import 'package:financhio/features/trasactionpages/views/addSms.dart';
-
+import 'package:financhio/features/trasactionpages/views/income.dart';
 import 'package:financhio/firebase_options.dart';
-import 'package:financhio/homeview.dart';
-import 'package:financhio/screens/welcomescreens/onboardingPage.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import 'features/authfeatures/views/signUpPageView.dart';
-import 'features/trasactionpages/views/expense.dart';
-
 int? inintScreen;
 
 Future<void> main() async {
@@ -47,7 +34,7 @@ class MyApp extends ConsumerWidget {
         useMaterial3: true,
       ),
       
-      home: const AddAllSms()
+      home: const AddIncome()
       
    /*  ref.watch(userDataAuthProvider ).when(data: (user){
         if( inintScreen==null){
