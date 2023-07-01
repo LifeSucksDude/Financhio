@@ -18,14 +18,16 @@ class AddTransactionController {
 
   AddTransactionController(
       {required this.addTransactionRepo, required this.ref});
+      
   void ReadAllSms() {
     addTransactionRepo.getAllSms();
   }
-
-  Stream<QuerySnapshot<Map<String, dynamic>>>? returnSnapShots(
-      BuildContext context) {
-    return addTransactionRepo.snapShots(context);
+  Future<List<String> >addBankList()async{
+    return await
+    addTransactionRepo.getBanksList();
   }
+
+ 
 
   void addTransaction(
       String type,

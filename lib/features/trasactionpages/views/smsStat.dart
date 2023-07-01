@@ -1,21 +1,24 @@
-import 'package:financhio/common/widegets/error_page.dart';
-import 'package:financhio/common/widegets/forAppOverall/customButton.dart';
-import 'package:financhio/common/widegets/loading.dart';
+import 'package:financhio/features/authfeatures/repositoris/auth_repo.dart';
+import 'package:financhio/features/trasactionpages/controller/addtransactionController.dart';
 import 'package:financhio/features/trasactionpages/repository/addTransactionRepo.dart';
-import 'package:financhio/homeview.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:telephony/telephony.dart';
 
-import '../controller/addtransactionController.dart';
+import '../../../common/widegets/forAppOverall/customButton.dart';
+import '../../../homeview.dart';
 
-class AddAllSms extends ConsumerWidget {
-  
-  const AddAllSms({super.key});
+class AddStateMessage extends ConsumerStatefulWidget {
+   static route()=> MaterialPageRoute(builder: (context)=>const AddStateMessage());
+  const AddStateMessage({super.key});
 
   @override
-  Widget build(BuildContext context,WidgetRef ref) {
+ ConsumerState<AddStateMessage> createState() => _AddStateMessageState();
+}
+
+class _AddStateMessageState extends ConsumerState<AddStateMessage> {
+  @override
+ 
+  Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
         
@@ -28,7 +31,7 @@ class AddAllSms extends ConsumerWidget {
             ),
             SizedBox(height: 50,),
             CustomButton(backgroundColor: Colors.green, onTap: (){
-              
+              ref.watch(addTransactionProvider).addTransactionRepo.addAllSmsAndStoreThem();
             }, text: 'Allow', textColor: Colors.white),
             SizedBox(height: 20,),
           ]
@@ -43,8 +46,8 @@ class AddAllSms extends ConsumerWidget {
           padding: const EdgeInsets.all(8.0),
           child: Text('Deny'),
         )),
-      
-       /* ref.watch(smsMessageProviderfor).when(data:(messages)=>ListView.builder(
+     
+      /*  ref.watch(smsMessageProviderfor).when(data:(messages)=>ListView.builder(
         itemCount: messages.length,
         itemBuilder: (context,index){
           final address=messages[index].address;

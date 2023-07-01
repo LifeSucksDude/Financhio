@@ -4,6 +4,7 @@ import 'package:financhio/common/utils/utils.dart';
 import 'package:financhio/common/widegets/forAppOverall/clipper.dart';
 import 'package:financhio/common/widegets/forAppOverall/customTextFieldApp.dart';
 import 'package:financhio/features/authfeatures/controller/authcontroller.dart';
+import 'package:financhio/features/forAddingProfile/addAccount.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -120,6 +121,7 @@ class _UserInformationState extends ConsumerState<UserInformation> {
                   GestureDetector(
                     onTap: () {
                       StoreUserData();
+                      Navigator.push(context,AddListofBankName.route());
                     },
                     child: Container(
                       height: 45,

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'navAddAccount.dart';
 
 class AddListofBankName extends StatelessWidget {
+    static route()=> MaterialPageRoute(builder: (context)=>const AddListofBankName());
   const AddListofBankName({super.key});
 
   @override

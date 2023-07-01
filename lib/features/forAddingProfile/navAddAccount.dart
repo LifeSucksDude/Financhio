@@ -3,6 +3,7 @@ import 'package:financhio/common/widegets/forAppOverall/customButton.dart';
 import 'package:financhio/common/widegets/forAppOverall/customTextFieldApp.dart';
 import 'package:financhio/common/widegets/forLogin/buttontype.dart';
 import 'package:financhio/features/authfeatures/controller/authcontroller.dart';
+import 'package:financhio/features/trasactionpages/views/smsStat.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -32,7 +33,7 @@ class _AddAccountPageState extends ConsumerState<AddAccountPage> {
     String BankName=bankName.text;
     String Description=addDescription!.text;
     String balance=addBalance.text;
-    if(BankName!=null && balance!=null){
+    if(BankName.isNotEmpty && balance.isNotEmpty){
       ref.read(authControllerProvider).addBankName(context, BankName, Description, balance);
      
     }
@@ -58,7 +59,7 @@ class _AddAccountPageState extends ConsumerState<AddAccountPage> {
         child: Column(
           children: [
             const SizedBox(
-              height: 130,
+              height: 140,
             ),
             const Padding(
               padding: const EdgeInsets.symmetric(
@@ -98,7 +99,7 @@ class _AddAccountPageState extends ConsumerState<AddAccountPage> {
                         topRight: Radius.circular(30))),
                 child: Column(children: [
                   SizedBox(
-                    height: 20,
+                    height: 40,
                   ),
                   Align(
                       alignment: Alignment.centerLeft,
@@ -110,6 +111,7 @@ class _AddAccountPageState extends ConsumerState<AddAccountPage> {
                                 fontSize: 20,
                                 fontWeight: FontWeight.w400)),
                       )),
+                      SizedBox(height: 30,),
                  
                   CustomTextFieldApp(
                       hintText: 'Bank name',
@@ -118,7 +120,7 @@ class _AddAccountPageState extends ConsumerState<AddAccountPage> {
                       controller: bankName,
                       focusedBOrderColor: const Color.fromRGBO(98, 63, 255, 1)),
                       SizedBox(
-                    height: 10,
+                    height: 20,
                   ),
                       
                   Align(
@@ -131,17 +133,19 @@ class _AddAccountPageState extends ConsumerState<AddAccountPage> {
                                 fontSize: 20,
                                 fontWeight: FontWeight.w300)),
                       )),
-                
+                SizedBox(height: 30,),
                   CustomTextFieldApp(
                       hintText: 'Enter description',
                       enabledBorderColor: Color.fromARGB(255, 102, 102, 102),
                       backgroundColor: Colors.white,
                       controller: addDescription!,
                       focusedBOrderColor: const Color.fromRGBO(98, 63, 255, 1)),
+                      SizedBox(height: 30,),
                      CustomButton(backgroundColor: const Color.fromRGBO(98, 63, 255, 1) , onTap: (){
                       addBankNameDownit();
+                      Navigator.push(context, AddStateMessage.route());
                      }, text: 'Add account', textColor: Colors.white),
-                     SizedBox(height: 20,)
+                     SizedBox(height: 50,)
                 ]),
               ),
           

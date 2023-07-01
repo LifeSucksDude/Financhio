@@ -1,11 +1,21 @@
 
+import 'package:financhio/common/widegets/loading.dart';
 import 'package:financhio/features/forAddingProfile/navAddAccount.dart';
+import 'package:financhio/features/trasactionpages/views/expense.dart';
 import 'package:financhio/features/trasactionpages/views/income.dart';
+import 'package:financhio/features/trasactionpages/views/smsStat.dart';
 import 'package:financhio/firebase_options.dart';
+import 'package:financhio/homeview.dart';
+import 'package:financhio/screens/welcomescreens/onboardingPage.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'common/widegets/error_page.dart';
+import 'features/authfeatures/controller/authcontroller.dart';
+import 'features/authfeatures/views/signUpPageView.dart';
+import 'features/forAddingProfile/addProfile.dart';
 int? inintScreen;
 
 Future<void> main() async {
@@ -34,7 +44,7 @@ class MyApp extends ConsumerWidget {
         useMaterial3: true,
       ),
       
-      home: const AddIncome()
+      home:HomePage()
       
    /*  ref.watch(userDataAuthProvider ).when(data: (user){
         if( inintScreen==null){

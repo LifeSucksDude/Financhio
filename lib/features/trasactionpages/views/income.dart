@@ -21,8 +21,8 @@ class _AddIncomeState extends ConsumerState<AddIncome> {
   String? selectedBank;
   String? selectedCategory;
   File? image;
-  late final AddTransactionController addTransactionController;
-  Stream<QuerySnapshot<Map<String, dynamic>>>? snapshotStream;
+  
+ 
    List<String> bankList = [];
 
   final TextEditingController addIncome = TextEditingController();
@@ -31,21 +31,21 @@ class _AddIncomeState extends ConsumerState<AddIncome> {
  
   @override
   void initState() {
-     addTransactionController = ref.read(addTransactionProvider);
-    snapshotStream = addTransactionController.addTransactionRepo.snapShots(context);
-    storeSnapshotData();
+     WidgetsBinding.instance!.addPostFrameCallback((_) {
+    getBankNameList();
+  });
+   
     super.initState();
   }
- void storeSnapshotData() {
-    snapshotStream?.listen((snapshot) {
-      final bankDocs = snapshot.docs;
-      final List<String> banks = bankDocs.map((doc) => doc.id).toList();
+  void getBankNameList()async{
+  bankList=await ref.watch(addTransactionProvider).addBankList();
+  
+  setState(() {
+    
+  });
+  print(bankList);
+ }
 
-      setState(() {
-        bankList = banks;
-      });
-    });
-  }
   void storeTheTransaction(){
     String amount=addIncome.text.trim();
     String type='Income';
@@ -56,7 +56,7 @@ class _AddIncomeState extends ConsumerState<AddIncome> {
     DateTime dateTime = DateTime.now();
   String datetimeString = dateTime.toString();
   
-    if(amount.isNotEmpty && category.isNotEmpty && bankName.isNotEmpty){
+    if(amount.isNotEmpty  && bankName.isNotEmpty){
    ref.read(addTransactionProvider).addTransaction(type, attachment, context, category, bankName, datetimeString, description, amount);}
    else{
     showSnackBar(context: context, content: "Can not have amount, category, bankname as empty strings");
