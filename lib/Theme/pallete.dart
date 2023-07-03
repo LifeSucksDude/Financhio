@@ -7,7 +7,10 @@ class Pallete{
   static const Color greyColor=Color.fromARGB(255, 65, 65, 65);
   static const Color searchBarColor= Colors.greenAccent;
   static const Color whiteColor=Colors.white;
-  static const Color redColor=Color.fromARGB(255, 247, 126, 117);
+  static const Color redColor=Colors.red;
   static const Color blueColor=Colors.lightBlue;
-  static const Color purpleColor=Color.fromARGB(255, 240, 158, 255);
+  static const Color purpleColor=Color.fromARGB(255, 43, 4, 171);
+  static const Color greenColor=Color.fromARGB(255, 0, 161, 5);
+  static const Color paleColor=Color.fromARGB(255, 255, 230, 205);
+   static const Color whiteFadeColor=Color.fromARGB(255, 204, 204, 204);
 }
