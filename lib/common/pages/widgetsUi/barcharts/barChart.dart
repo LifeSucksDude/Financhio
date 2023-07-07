@@ -32,7 +32,6 @@ class BarChartWidget extends ConsumerWidget {
             List<DateTime> x = []; // List to store x-axis values
             List<double> y = [];
          
-
             // Process the data and populate x and y lists
             if (data != null) {
               for (var transaction in data) {

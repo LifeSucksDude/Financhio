@@ -3,7 +3,7 @@ import 'dart:html';
 import 'package:financhio/Theme/pallete.dart';
 import 'package:financhio/common/pages/addvartrasaction.dart';
 import 'package:financhio/common/pages/finRep.dart';
-import 'package:financhio/common/pages/pagelist.dart';
+
 import 'package:financhio/common/pages/profilepage.dart';
 import 'package:financhio/common/pages/trasactionscreen.dart';
 import 'package:financhio/common/pages/widgetsUi/appBar.dart';
@@ -122,7 +122,7 @@ class _HomePageState extends ConsumerState<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    
+     
   ref.watch(userDataAuthProvider);
     return FutureBuilder(
       future: ref.watch(mySelectedBankProvider),

@@ -60,6 +60,30 @@ class MyListCard extends StatelessWidget {
   final String tuid;
   final String bankName;
 
+  // Map associating each category with its color and asset image
+  static const Map<String, Color> categoryColors = {
+    'Shopping': Color.fromARGB(255, 255, 255, 255),
+    'Food': Color.fromARGB(255, 255, 233, 253),
+    'Job': Color.fromARGB(255, 203, 253, 238),
+    'Fees':Color.fromARGB(255, 224, 246, 255),
+    'Others':Color.fromARGB(255, 211, 190, 255),
+    'Startup':Color.fromARGB(255, 229, 246, 255),
+    'Technology':Color.fromARGB(255, 255, 217, 206)
+  };
+
+  static const Map<String, String> categoryImages = {
+    'Shopping': 'assets/images/shopping bag.png',
+    'Food': 'assets/images/food.png',
+    'Job': 'assets/images/success.png',
+    'Fees':"assets/images/wallet 3.png",
+    'Others':"assets/images/Frame 5.png",
+    
+    'Startup':"assets/images/Frame 5.png",
+    'Technology':"assets/images/subsc.png",
+    "Tutorials":"assets/images/Frame 5.png",
+    "Skills":"assets/images/subsc.png",
+  };
+
   const MyListCard({
     Key? key,
     required this.url,
@@ -68,26 +92,45 @@ class MyListCard extends StatelessWidget {
     required this.category,
     required this.datetime,
     required this.description,
-    required this.tuid, 
-     this.attachment,
-     required this.bankName
+    required this.tuid,
+    this.attachment,
+    required this.bankName,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-
-   DateTime datetimei = DateFormat("yyyy-MM-dd HH:mm:ss.SSSSSS").parse(datetime);
-
+    DateTime datetimei = DateFormat("yyyy-MM-dd HH:mm:ss.SSSSSS").parse(datetime);
     String formattedDatetime = DateFormat.yMd().add_jm().format(datetimei);
-  
+
+    Color categoryColor = categoryColors.containsKey(category)
+        ? categoryColors[category]!
+        : Colors.black; // Default color if category is not found in the map
+
+    String categoryImage = categoryImages.containsKey(category)
+        ? categoryImages[category]!
+        : ''; // Default image if category is not found in the map
 
     return GestureDetector(
       onTap: () {
-        Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
-          return
-          TransactionInfo(transaction: TransactionModel(amount: double.parse(amount),datetime: datetime,type: type,category: category,bankName: bankName,description: description,attachment: attachment,tuid: tuid));
-        }));
-       // Navigator.pushNamed(context, "lsd",arguments:TransactionModel(datetime: datetime, type: type, amount: double.parse(amount), category: category,bankName: ''));
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (BuildContext context) {
+              return TransactionInfo(
+                transaction: TransactionModel(
+                  amount: double.parse(amount),
+                  datetime: datetime,
+                  type: type,
+                  category: category,
+                  bankName: bankName,
+                  description: description,
+                  attachment: attachment,
+                  tuid: tuid,
+                ),
+              );
+            },
+          ),
+        );
       },
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 4),
@@ -95,7 +138,7 @@ class MyListCard extends StatelessWidget {
           height: 89,
           width: 336,
           decoration: BoxDecoration(
-            color: Color.fromARGB(255, 255, 240, 240),
+            color: Color.fromARGB(255, 248, 248, 255),
             borderRadius: BorderRadius.circular(24),
           ),
           child: Row(
@@ -119,10 +162,10 @@ class MyListCard extends StatelessWidget {
                                 height: 40,
                                 width: 40,
                                 decoration: BoxDecoration(
-                                  color: Color.fromARGB(255, 255, 168, 168),
+                                  color: categoryColor,
                                   borderRadius: BorderRadius.circular(10),
                                   image: DecorationImage(
-                                    image: NetworkImage(url),
+                                    image: AssetImage(categoryImage),
                                     fit: BoxFit.fill,
                                   ),
                                 ),
@@ -173,7 +216,7 @@ class MyListCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 2.0,horizontal: 20.0),
+                    padding: const EdgeInsets.symmetric(vertical: 2.0, horizontal: 20.0),
                     child: Text(
                       type == 'Expense' ? "- $amount" : "+ $amount",
                       style: TextStyle(
@@ -184,9 +227,9 @@ class MyListCard extends StatelessWidget {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 0.0,horizontal: 20.0),
+                    padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 20.0),
                     child: Text(
-                     formattedDatetime,
+                      formattedDatetime,
                       style: TextStyle(
                         fontSize: 13,
                         fontWeight: FontWeight.w400,

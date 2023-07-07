@@ -25,7 +25,7 @@ class ProfilePage extends ConsumerWidget {
                     if(snapshot.data==null){
                       return Loader();
                     }
-                 final   data=snapshot.data;
+                    final data=snapshot.data;
                     return Scaffold(backgroundColor: Pallete.whiteColor,
       appBar: AppBar(
         leading: GestureDetector(
@@ -106,8 +106,10 @@ class ProfilePage extends ConsumerWidget {
                               width: 52,
                               decoration: BoxDecoration(
                                 color:Color.fromARGB(255, 210, 200, 255),
-                                borderRadius: BorderRadius.circular(16)
+                                borderRadius: BorderRadius.circular(16),
+                                image: DecorationImage(image: AssetImage("assets/images/wallet 3.png"))
                               ),
+                              
                               
                             ),
                            
@@ -140,7 +142,8 @@ class ProfilePage extends ConsumerWidget {
                               width: 52,
                               decoration: BoxDecoration(
                                 color:Color.fromARGB(255, 210, 200, 255),
-                                borderRadius: BorderRadius.circular(16)
+                                borderRadius: BorderRadius.circular(16),
+                                 image: DecorationImage(image: AssetImage("assets/images/settings.png"))
                               ),
                               
                             ),
@@ -176,6 +179,7 @@ class ProfilePage extends ConsumerWidget {
                                 color:Color.fromARGB(255, 210, 200, 255),
                                 borderRadius: BorderRadius.circular(16)
                               ),
+                              child: Icon(Icons.add_box_rounded,color: const Color.fromARGB(255, 246, 228, 227),),
                               
                             ),
                            
@@ -230,6 +234,7 @@ class ProfilePage extends ConsumerWidget {
             decoration: BoxDecoration(
               color: Color.fromARGB(255, 255, 190, 195),
               borderRadius: BorderRadius.circular(16),
+               image: DecorationImage(image: AssetImage("assets/images/logout.png"))
             ),
           ),
         ),

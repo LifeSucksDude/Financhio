@@ -45,11 +45,13 @@ class FinancialReport extends ConsumerWidget {
       body: FutureBuilder<String?>(
           future: bankNameFuture,
           builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
+            final height=MediaQuery.of(context).size.height; 
+              final width=MediaQuery.of(context).size.width;   
+                     if (snapshot.connectionState == ConnectionState.waiting) {
               return Loader();
             }
             if(snapshot.data==null){
-              return Center(child: Text("Please belect a Bank",style: TextStyle(fontSize:32,color: Pallete.greyColor),));
+              return Center(child: Text("Please belect a Bank",style: TextStyle(fontSize:0.034*height,color: Pallete.greyColor),));
             }
             final bankName = snapshot.data;
             return StreamBuilder(
@@ -61,10 +63,11 @@ class FinancialReport extends ConsumerWidget {
                   return Loader();
                 }
                 return SingleChildScrollView(
+                
                   child: Column(
                     children: [
                        Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: EdgeInsets.all(0.017*height),
         child: Column(
           children: [
             Consumer(builder: (context, ref, _) {

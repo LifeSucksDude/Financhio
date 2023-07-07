@@ -53,7 +53,7 @@ class _MainScreenState extends ConsumerState<MainScreen> {
        
          
           if(selectedBank==null && snapshot.data==null){
-            return Center(child: Text("Please Select a Bank",style: TextStyle(fontSize: 32,color: Pallete.backgroundColor),));
+            return Center(child: Text("Please Select a Bank",style: TextStyle(fontSize: 32,color: Colors.black),));
           }
           String bankName=snapshot.data!;
         

@@ -272,6 +272,7 @@ class AddTransaction {
     bankList = await getBanksList();
     // print(messages);
     print(bankList);
+    
     for (int i = 0; i < bankList.length; i++) {
       for (int j = 0; j < messages.length; j++) {
         String? bankName;
@@ -281,7 +282,7 @@ class AddTransaction {
         String? dateTime;
 
         dateTime = messages[j].date.toString();
-        if (messages[j].address!.contains(bankList[i])||messages[j].address!.contains(bankList[i]+"UPI")||messages[j].address!.contains(bankList[j]+"INB")||messages[j].address!.contains(bankList[j]+"ATM")) {
+        if (messages[j].address!.contains(bankList[i]+"UPI")||messages[j].address!.contains(bankList[j]+"INB")||messages[j].address!.contains(bankList[j]+"ATM")) {
           bankName = bankList[i];
           if (messages[j].body!.contains('debited')) {
             type = "Expense";
