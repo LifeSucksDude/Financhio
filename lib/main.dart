@@ -1,5 +1,6 @@
 
 import 'package:financhio/common/pages/profilepage.dart';
+import 'package:financhio/common/pages/widgetsUi/updatepage.dart';
 import 'package:financhio/common/widegets/loading.dart';
 import 'package:financhio/features/forAddingProfile/navAddAccount.dart';
 import 'package:financhio/features/trasactionpages/controller/addtransactionController.dart';
@@ -61,8 +62,8 @@ class MyApp extends ConsumerWidget {
           ),
           
           home:
-          
-         ref.watch(userDataAuthProvider ).when(data: (user){
+       
+        ref.watch(userDataAuthProvider ).when(data: (user){
             if( inintScreen==null){
               print(inintScreen);
               return   OnBoardingScreens();

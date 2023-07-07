@@ -43,7 +43,7 @@ void dotheFunctionSignUp(){
   Widget build(BuildContext context) {
     return  Scaffold(
       appBar: AppBar(
-        title: Text('Financhio',style: TextStyle(color: Pallete.backgroundColor,fontSize: 30),),
+        title: Text('Financhio',style: TextStyle(color: Pallete.backgroundColor,fontSize: 23),),
         centerTitle: true,
       ),
       backgroundColor:Pallete.whiteColor ,

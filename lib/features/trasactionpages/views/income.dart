@@ -94,133 +94,139 @@ class _AddIncomeState extends ConsumerState<AddIncome> {
         ),
         backgroundColor: Colors.green,
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          const SizedBox(
-            height: 150,
-          ),
-          const Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 16.0,
-            ),
-            child: Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  'How much?',
-                  style: TextStyle(
-                      fontSize: 20,
-                      color: Color.fromARGB(249, 255, 235, 235),
-                      fontWeight: FontWeight.w700),
-                )),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 16.0),
-            child: TextField(
-              style: TextStyle(fontSize: 50, color: Colors.white),
-              controller: addIncome,
-               keyboardType: TextInputType.numberWithOptions(decimal: true),
-  inputFormatters: <TextInputFormatter>[
-    FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
-  ],
-              decoration: InputDecoration(
-                hintText: '0.00',
-                hintStyle: TextStyle(fontSize: 50, color: Colors.white),
-                border: InputBorder.none,
+      body: SingleChildScrollView(
+        
+        child: SizedBox(
+          height: MediaQuery.of(context).size.height,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              const SizedBox(
+                height: 150,
               ),
-              maxLines: 1,
-            ),
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          Expanded(
-            child: Container(
-              width: MediaQuery.of(context).size.width,
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.all(Radius.circular(20)),
+              const Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16.0,
+                ),
+                child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      'How much?',
+                      style: TextStyle(
+                          fontSize: 20,
+                          color: Color.fromARGB(249, 255, 235, 235),
+                          fontWeight: FontWeight.w700),
+                    )),
               ),
-              child: Column(children: [
-                const SizedBox(
-                  height: 60,
+              Padding(
+                padding: const EdgeInsets.only(left: 16.0),
+                child: TextField(
+                  style: TextStyle(fontSize: 50, color: Colors.white),
+                  controller: addIncome,
+                   keyboardType: TextInputType.numberWithOptions(decimal: true),
+          inputFormatters: <TextInputFormatter>[
+            FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
+          ],
+                  decoration: InputDecoration(
+                    hintText: '0.00',
+                    hintStyle: TextStyle(fontSize: 50, color: Colors.white),
+                    border: InputBorder.none,
+                  ),
+                  maxLines: 1,
                 ),
-                MyDropdownWidget(
-                  onItemSelected: (value){
-                    selectedCategory=value;
-                    print(value);
-                    print(selectedCategory);
-                    setState(() {
-                      
-                    });
-                  },
-                  hintText: selectedCategory==null?'Category':'$selectedCategory',
-                  dropdownItems: [
-                  'Job',
-                  'Startup',
-                  'Tutorials',
-                  'Skills',
-                  'Others'
-                ], textColor: const Color.fromARGB(255, 73, 73, 73)),
-                SizedBox(
-                  height: 20,
-                ),
-                CustomTextFieldApp(
-                    hintText: 'Description',
-                    enabledBorderColor: Color.fromARGB(255, 208, 208, 208),
-                    backgroundColor: Colors.white,
-                    controller: addDescription,
-                    focusedBOrderColor: const Color.fromARGB(255, 203, 168, 166)),
-                    SizedBox(height: 20,),
-                     MyDropdownWidget(
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Expanded(
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.all(Radius.circular(20)),
+                  ),
+                  child: Column(children: [
+                    const SizedBox(
+                      height: 60,
+                    ),
+                    MyDropdownWidget(
                       onItemSelected: (value){
-                        selectedBank=value;
+                        selectedCategory=value;
+                        print(value);
+                        print(selectedCategory);
+                        setState(() {
+                          
+                        });
                       },
-                      dropdownItems: bankList, textColor: const Color.fromARGB(255, 73, 73, 73),hintText: 'Select Bank',),
-                      SizedBox(height: 20,),
-                      GestureDetector(
-                        onTap: (){
-                          selelctImage();
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal:16.0),
-                          child: Container(
-                            height: 56,
-                           decoration: BoxDecoration(
-                            color: const Color.fromARGB(255, 255, 255, 255),
-                            borderRadius: BorderRadius.circular(20),
-                            border: Border.all(
-                              color: Color.fromARGB(255, 227, 227, 227),
-                            )
-                            
-                           ),
-                           child: Center(child: image==null? Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [Icon(Icons.attach_file),
-                            SizedBox(width: 5,),
-                            Text('Add attachment')
-                            ],):Text('Attachemnt added')
+                      hintText: selectedCategory==null?'Category':'$selectedCategory',
+                      dropdownItems: [
+                      'Job',
+                      'Startup',
+                      'Tutorials',
+                      'Skills',
+                      'Others'
+                    ], textColor: const Color.fromARGB(255, 73, 73, 73)),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    CustomTextFieldApp(
+                        hintText: 'Description',
+                        enabledBorderColor: Color.fromARGB(255, 208, 208, 208),
+                        backgroundColor: Colors.white,
+                        controller: addDescription,
+                        focusedBOrderColor: const Color.fromARGB(255, 203, 168, 166)),
+                        SizedBox(height: 20,),
+                         MyDropdownWidget(
+                          onItemSelected: (value){
+                            selectedBank=value;
+                          },
+                          dropdownItems: bankList, textColor: const Color.fromARGB(255, 73, 73, 73),hintText: 'Select Bank',),
+                          SizedBox(height: 20,),
+                          GestureDetector(
+                            onTap: (){
+                              selelctImage();
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal:16.0),
+                              child: Container(
+                                height: 56,
+                               decoration: BoxDecoration(
+                                color: const Color.fromARGB(255, 255, 255, 255),
+                                borderRadius: BorderRadius.circular(20),
+                                border: Border.all(
+                                  color: Color.fromARGB(255, 227, 227, 227),
+                                )
+                                
+                               ),
+                               child: Center(child: image==null? Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [Icon(Icons.attach_file),
+                                SizedBox(width: 5,),
+                                Text('Add attachment')
+                                ],):Text('Attachemnt added')
+                                ),
+                              ),
                             ),
                           ),
-                        ),
-                      ),
-                      SizedBox(height: 30,),
-
-                CustomButton(
-                    backgroundColor: const Color.fromRGBO(98, 63, 255, 1),
-                    onTap: () {
-                       storeTheTransaction();
-                    },
-                    text: 'Add Income',
-                    textColor: Colors.white),
-                SizedBox(
-                  height: 20,
+                          SizedBox(height: 30,),
+              
+                    CustomButton(
+                        backgroundColor: const Color.fromRGBO(98, 63, 255, 1),
+                        onTap: () {
+                           storeTheTransaction();
+                        },
+                        text: 'Add Income',
+                        textColor: Colors.white),
+                    SizedBox(
+                      height: 20,
+                    ),
+                   
+                  ]),
                 ),
-               
-              ]),
-            ),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
