@@ -46,31 +46,40 @@ class TransactionScreen extends ConsumerWidget {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Loader();
                 }
-                return ListView.builder(
-                  physics: BouncingScrollPhysics(),
-                  itemCount: snapshot.data!.length,
-                  itemBuilder: (context, index) {
-                    var trasactionData = snapshot.data![index];
-
-                    String url = "https://source.unsplash.com/user/wsanter";
-                    String amount = trasactionData.amount.toString();
-                    String type = trasactionData.type;
-                    String category = trasactionData.category;
-                    String datetime = trasactionData.datetime;
-                    String description = trasactionData.description!;
-                    String tuid=trasactionData.tuid;
-                    String bankName=trasactionData.bankName;
-                    return MyListCard(
-                      url: url,
-                      amount: amount,
-                      category: category,
-                      type: type,
-                      datetime: datetime,
-                      description: description,
-                      tuid: tuid,
-                      bankName: bankName,
-                    );
-                  },
+                return SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      Container(
+                        height: MediaQuery.of(context).size.height,
+                        child: ListView.builder(
+                          physics: BouncingScrollPhysics(),
+                          itemCount: snapshot.data!.length,
+                          itemBuilder: (context, index) {
+                            var trasactionData = snapshot.data![index];
+                                      
+                            String url = "https://source.unsplash.com/user/wsanter";
+                            String amount = trasactionData.amount.toString();
+                            String type = trasactionData.type;
+                            String category = trasactionData.category;
+                            String datetime = trasactionData.datetime;
+                            String description = trasactionData.description!;
+                            String tuid=trasactionData.tuid;
+                            String bankName=trasactionData.bankName;
+                            return MyListCard(
+                              url: url,
+                              amount: amount,
+                              category: category,
+                              type: type,
+                              datetime: datetime,
+                              description: description,
+                              tuid: tuid,
+                              bankName: bankName,
+                            );
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
                 );
               },
             );

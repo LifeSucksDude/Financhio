@@ -5,8 +5,8 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../../features/trasactionpages/controller/addtransactionController.dart';
-import '../../../../models/transaction.dart';
+import '../../../../../features/trasactionpages/controller/addtransactionController.dart';
+import '../../../../../models/transaction.dart';
 
 class BarNewChartWidget extends ConsumerWidget {
   final String period;
@@ -33,8 +33,7 @@ class BarNewChartWidget extends ConsumerWidget {
             List<TransactionModel>? data = snapshot.data;
             List<DateTime> x = []; // List to store x-axis values
             List<double> y = [];
-            List<DateTime> w = [];
-            List<double> z = []; // List to store y-axis values
+           
 
             // Process the data and populate x and y lists
             if (data != null) {
@@ -46,10 +45,7 @@ class BarNewChartWidget extends ConsumerWidget {
                   x.add(date);
                   // Add the date to x-axis list
                   y.add(transaction.amount); // Add the amount to y-axis list
-                } else {
-                  z.add(transaction.amount);
-                  w.add(date);
-                }
+                } 
               }
             }
 
@@ -63,7 +59,7 @@ class BarNewChartWidget extends ConsumerWidget {
                          
                         barGroups: List.generate(
                           
-                            w.length,
+                            x.length,
                             (index) { 
                               return
                               BarChartGroupData(x: index, barRods: [

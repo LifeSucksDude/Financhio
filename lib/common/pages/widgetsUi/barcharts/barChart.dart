@@ -31,8 +31,7 @@ class BarChartWidget extends ConsumerWidget {
             List<TransactionModel>? data = snapshot.data;
             List<DateTime> x = []; // List to store x-axis values
             List<double> y = [];
-            List<DateTime> w = [];
-            List<double> z = []; // List to store y-axis values
+         
 
             // Process the data and populate x and y lists
             if (data != null) {
@@ -40,14 +39,11 @@ class BarChartWidget extends ConsumerWidget {
                 // Add data to x and y lists based on your requirements
                 // For example, if you want to show amount on y-axis and date on x-axis:
                 DateTime date = DateTime.parse(transaction.datetime);
-                if (transaction.type == "Expense") {
+                if (transaction.type == "Income") {
                   x.add(date);
                   // Add the date to x-axis list
                   y.add(transaction.amount); // Add the amount to y-axis list
-                } else {
-                  z.add(transaction.amount);
-                  w.add(date);
-                }
+                } 
               }
             }
 

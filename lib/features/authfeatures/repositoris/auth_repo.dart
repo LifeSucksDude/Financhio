@@ -108,6 +108,7 @@ class AuthRepository {
   void updateUserDataInFirestore({
   String? name,
   File? profilePic,
+  String? photoUrl,
   required ProviderRef ref,
   required BuildContext context,
 }) async {
@@ -116,9 +117,12 @@ class AuthRepository {
   var userRef = firestore.collection('users').doc(uid);
 
   if (profilePic != null) {
+     photoUrl = await ref
+            .read(commonFirebaseStorageProvider)
+            .storeFiletoFirebase('profilePic/$uid', profilePic);
     await userRef.update({
       'name': name,
-      'profilePic': profilePic,
+      'profilePic': photoUrl,
     });
   } else {
     await userRef.update({
@@ -128,9 +132,16 @@ class AuthRepository {
 
   print('After update');
   showSnackBar(context: context, content: 'User data updated successfully!');
+     Navigator.pushAndRemoveUntil(
+  context,
+  MaterialPageRoute(builder: (context) => HomePage()),
+  (Route<dynamic> route) => false,
+);
+  
 } catch (e) {
   print('Update error: $e');
   showSnackBar(context: context, content: e.toString());
+  
 }
 }
 

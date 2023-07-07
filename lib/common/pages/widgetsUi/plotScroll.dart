@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 
 import 'barcharts/barChart.dart';
-import 'expenseChart.dart';
+import 'barcharts/expenseChart.dart';
 
 class PlotScroller extends StatelessWidget {
   String period;

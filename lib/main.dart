@@ -70,14 +70,14 @@ class MyApp extends ConsumerWidget {
             else if(user==null && inintScreen==1 ){
               return SignUpPageView();
             }
-            else if(inintScreen==1 && user!=null && user.name==null){
+            else if(inintScreen==1 && user!=null && initScreen2==null){
                return UserInformation();
             }
-            else if(inintScreen==1  && bankList!.isEmpty && user!=null&& user.name!=null){
+            else if(inintScreen==1  && bankList!.isEmpty && user!=null&& initScreen2==1){
                 return AddAccountPage();
             }
             else
-            if(user!=null && inintScreen==1 && bankList!.isNotEmpty){
+            if(user!=null && inintScreen==1 && bankList!.isNotEmpty && initScreen2==1){
               return  HomePage();
             }
 

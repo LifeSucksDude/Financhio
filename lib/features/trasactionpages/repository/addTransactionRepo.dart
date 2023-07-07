@@ -1,11 +1,15 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:financhio/common/pages/mainScreen.dart';
 import 'package:financhio/common/utils/utils.dart';
 import 'package:financhio/features/authfeatures/controller/authcontroller.dart';
+import 'package:financhio/features/authfeatures/views/signUpPageView.dart';
 import 'package:financhio/features/trasactionpages/controller/addtransactionController.dart';
+import 'package:financhio/homeview.dart';
 import 'package:financhio/models/bankModel.dart';
 import 'package:financhio/models/transaction.dart';
+import 'package:financhio/models/userModel.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -36,6 +40,7 @@ class AddTransaction {
     }
     return messages;
   }
+  
 
   Future<List<String>> getBanksList() async {
     String uid = auth.currentUser!.uid;
@@ -72,6 +77,18 @@ class AddTransaction {
         .doc(bankName)
         .snapshots()
         .map((event) => BankModel.fromMap(event.data()!));
+  }
+   Stream<UserModel> getUserData() {
+    String uid = auth.currentUser!.uid;
+    print(uid);
+
+    return firestore
+        .collection('users')
+        .doc(uid)
+      
+      
+        .snapshots()
+        .map((event) => UserModel.fromMap(event.data()!));
   }
 
   Stream<List<TransactionModel>> getAllTransactionForPeriod(
@@ -233,6 +250,12 @@ class AddTransaction {
       }
 
       showSnackBar(context: context, content: 'Transaction added successfully');
+       Navigator.pushAndRemoveUntil(
+  context,
+  MaterialPageRoute(builder: (context) =>HomePage()),
+  (Route<dynamic> route) => false,
+);
+      
     } catch (e) {
       showSnackBar(context: context, content: e.toString());
     }
@@ -397,6 +420,68 @@ class AddTransaction {
       return transactions;
     });
   }
+  Stream<List<Map<String, dynamic>>> dataForPieChart(String bankName) {
+  print("iamcalledfilter");
+
+  String uid = auth.currentUser!.uid;
+  return firestore
+      .collection('users')
+      .doc(uid)
+      .collection('banks')
+      .doc(bankName)
+      .collection('transaction')
+      .snapshots()
+      .asyncMap((event) {
+    List<TransactionModel> transactions = [];
+    for (var document in event.docs) {
+      var myTransaction = TransactionModel.fromMap(document.data());
+      transactions.add(myTransaction);
+    }
+
+    Map<String, double> incomeMap = {};
+    Map<String, double> expenseMap = {};
+
+    for (var transaction in transactions) {
+      String category = transaction.category;
+      double amount = transaction.amount;
+      String type = transaction.type;
+
+      if (type == 'Income') {
+        if (incomeMap.containsKey(category)) {
+          incomeMap[category] = incomeMap[category]! + amount;
+        } else {
+          incomeMap[category] = amount;
+        }
+      } else if (type == 'Expense') {
+        if (expenseMap.containsKey(category)) {
+          expenseMap[category] = expenseMap[category]! + amount;
+        } else {
+          expenseMap[category] = amount;
+        }
+      }
+    }
+
+    List<Map<String, dynamic>> result = [];
+    for (var category in incomeMap.keys) {
+      result.add({
+        'category': category,
+        'amount': incomeMap[category],
+        'type': 'Income',
+      });
+    }
+    for (var category in expenseMap.keys) {
+      result.add({
+        'category': category,
+        'amount': expenseMap[category],
+        'type': 'Expense',
+      });
+    }
+
+    print(result);
+    return result;
+  });
+}
+
   void deleteTransaction(String tuid,String bankName) async {
   try {
       String uid = auth.currentUser!.uid;
@@ -412,7 +497,7 @@ class AddTransaction {
     
     if (transactionSnapshot.exists) {
       await transactionRef.delete();
-      print('Transaction deleted successfully!');
+     
        QuerySnapshot<Map<String, dynamic>> snapshot = await firestore
           .collection('users')
           .doc(uid)
@@ -464,6 +549,7 @@ class AddTransaction {
           'totExpense': totExpense.toString(),
         });
       }
+       print('Transaction deleted successfully!');
 
     } else {
       print('Transaction does not exist!');
@@ -476,6 +562,11 @@ void logoutUser(String uid,BuildContext context) async {
   try {
     await auth.signOut();   
     showSnackBar(context: context, content: "logged out successfully");
+    Navigator.pushAndRemoveUntil(
+  context,
+  MaterialPageRoute(builder: (context) => SignUpPageView()),
+  (Route<dynamic> route) => false,
+);
     
     print('User with UID $uid logged out successfully!');
   } catch (e) {
