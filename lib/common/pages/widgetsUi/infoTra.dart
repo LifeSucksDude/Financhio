@@ -121,7 +121,7 @@ String formattedTime = DateFormat('hh:mm a').format(dateTime);
                                         Text(transaction.type,style: TextStyle(fontSize: 14,color: Pallete.backgroundColor,fontWeight: FontWeight.w700),),
                                           Center(child: Text(transaction.category,style: TextStyle(fontSize: 14,color: Pallete.backgroundColor,fontWeight: FontWeight.w700),)),
                                           SizedBox(height: 0,),
-                                            Text("SBI",style: TextStyle(fontSize: 14,color: Pallete.backgroundColor,fontWeight: FontWeight.w700),)
+                                            Text(transaction.bankName,style: TextStyle(fontSize: 14,color: Pallete.backgroundColor,fontWeight: FontWeight.w700),)
                                                              
                                       ],
                                     ),

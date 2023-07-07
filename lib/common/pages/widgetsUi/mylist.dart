@@ -136,7 +136,7 @@ class MyListCard extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 4),
         child: Container(
           height: 89,
-          width: 336,
+          width: 320,
           decoration: BoxDecoration(
             color: Color.fromARGB(255, 248, 248, 255),
             borderRadius: BorderRadius.circular(24),
