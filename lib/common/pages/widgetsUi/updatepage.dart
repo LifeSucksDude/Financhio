@@ -1,4 +1,8 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:io';
+
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:financhio/common/utils/utils.dart';
 import 'package:financhio/common/widegets/forAppOverall/clipper.dart';
@@ -6,22 +10,20 @@ import 'package:financhio/common/widegets/forAppOverall/customTextFieldApp.dart'
 import 'package:financhio/features/authfeatures/controller/authcontroller.dart';
 import 'package:financhio/features/forAddingProfile/addAccount.dart';
 
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../../Theme/pallete.dart';
 
-import '../../Theme/pallete.dart';
-
-
-
-class UserInformation extends ConsumerStatefulWidget {
-  static route()=> MaterialPageRoute(builder: (context)=>const UserInformation());
-  const UserInformation({super.key});
+class UpdateAccountPage extends ConsumerStatefulWidget {
+  String url;
+ route()=> MaterialPageRoute(builder: (context)=> UpdateAccountPage(url: url,));
+   UpdateAccountPage({
+    required this.url,
+  });
 
   @override
-  ConsumerState<UserInformation> createState() => _UserInformationState();
+  ConsumerState<UpdateAccountPage> createState() => _UserInformationState();
 }
 
-class _UserInformationState extends ConsumerState<UserInformation> {
+class _UserInformationState extends ConsumerState<UpdateAccountPage> {
   final TextEditingController nameController = TextEditingController();
   File? image;
   @override
@@ -35,17 +37,24 @@ class _UserInformationState extends ConsumerState<UserInformation> {
       
     });
   }
-  void StoreUserData()async{
+  void UpdateUserData()async{
    String name=nameController.text.trim();
    if(name.isNotEmpty){
-    ref.read(authControllerProvider).saveUserDataToFirebase(context, name, image);
+    ref.read(authControllerProvider).updateInfo(context, name, image);
    }
    else{
-    showSnackBar(context: context, content: "Please enter your name!");
+    showSnackBar(context: context, content: "Kuch toh change karo sir");
    }
   }
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text("Change Information",),
+        centerTitle: true,
+        backgroundColor: Pallete.purpleColor,
+        foregroundColor: Pallete.whiteColor,
+
+      ),
       backgroundColor: Color.fromARGB(255, 255, 255, 255),
       body: Container(
         height: MediaQuery.of(context).size.height,
@@ -53,7 +62,7 @@ class _UserInformationState extends ConsumerState<UserInformation> {
           ClipPath(
             clipper: MyCustomClipper(),
             child: Container(
-              height: 120,
+              height: 60,
               width: 1000,
               color: Pallete.purpleColor,
             ),
@@ -65,7 +74,7 @@ class _UserInformationState extends ConsumerState<UserInformation> {
             children: [
             image==null?CircleAvatar(
                
-                backgroundImage: NetworkImage('https://source.unsplash.com/user/wsanter'),
+                backgroundImage: NetworkImage(widget.url),
              
                 backgroundColor: Colors.black,
                 radius: 64,
@@ -122,12 +131,12 @@ class _UserInformationState extends ConsumerState<UserInformation> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(left: 16.0, right: 16),
-                      child: Text("Account Setup",
+                      child: Text("Update Account",
                           style: TextStyle(color: Colors.white)),
                     ),
                     GestureDetector(
                       onTap: () {
-                        StoreUserData();
+                        UpdateUserData();
                      
                       },
                       child: Container(

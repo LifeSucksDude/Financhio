@@ -1,3 +1,4 @@
+import 'package:financhio/Theme/pallete.dart';
 import 'package:financhio/common/utils/utils.dart';
 import 'package:financhio/common/widegets/forAppOverall/customButton.dart';
 import 'package:financhio/common/widegets/forAppOverall/customTextFieldApp.dart';
@@ -5,6 +6,7 @@ import 'package:financhio/common/widegets/forLogin/buttontype.dart';
 import 'package:financhio/features/authfeatures/controller/authcontroller.dart';
 import 'package:financhio/features/trasactionpages/views/smsStat.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class AddAccountPage extends ConsumerStatefulWidget {
@@ -32,8 +34,10 @@ class _AddAccountPageState extends ConsumerState<AddAccountPage> {
   void addBankNameDownit(){
     String BankName=bankName.text;
     String Description=addDescription!.text;
-    String balance=addBalance.text;
-    if(BankName.isNotEmpty && balance.isNotEmpty){
+    
+     double balance = double.tryParse(addBalance.text) ?? 0.0;
+    if(BankName.isNotEmpty){
+      
       ref.read(authControllerProvider).addBankName(context, BankName, Description, balance);
      
     }
@@ -44,26 +48,28 @@ class _AddAccountPageState extends ConsumerState<AddAccountPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromRGBO(98, 63, 255, 1),
+      backgroundColor: Pallete.purpleColor,
       appBar: AppBar(
           title: const Text(
             'Add new account',
-            style: TextStyle(color: Colors.white),
+            style: TextStyle(color: Pallete.whiteColor),
           ),
-          leading: const Icon(
-            Icons.arrow_back_ios_new,
-            color: Colors.white,
-          ),
-          backgroundColor: const Color.fromRGBO(98, 63, 255, 1)),
-      body: SingleChildScrollView(
+          leading: GestureDetector(
+            onTap: (){
+              Navigator.pop(context);
+            },
+            child: Icon(Icons.arrow_back_ios_new,color: Pallete.whiteColor,)),
+          backgroundColor:Pallete.purpleColor),
+      body:Container(
+        height:MediaQuery.of(context).size.height ,
         child: Column(
           children: [
             const SizedBox(
-              height: 140,
+              height: 180,
             ),
             const Padding(
               padding: const EdgeInsets.symmetric(
-                horizontal: 16.0,
+                horizontal: 20.0,
               ),
               child: Align(
                   alignment: Alignment.centerLeft,
@@ -71,83 +77,89 @@ class _AddAccountPageState extends ConsumerState<AddAccountPage> {
                     'Enter current balance',
                     style: TextStyle(
                         fontSize: 20,
-                        color: Color.fromARGB(251, 197, 194, 252),
+                        color: Pallete.whiteColor,
                         fontWeight: FontWeight.w700),
                   )),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 16.0),
+              padding: const EdgeInsets.only(left: 20.0),
               child: TextField(
-                style: TextStyle(fontSize: 50, color: Colors.white),
+                style: TextStyle(fontSize: 50, color:Pallete.whiteColor),
                 controller: addBalance,
+                 keyboardType: TextInputType.numberWithOptions(decimal: true),
+  inputFormatters: <TextInputFormatter>[
+    FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
+  ],
                 decoration: InputDecoration(
                   
                   hintText: '0.00',
-                  hintStyle: TextStyle(fontSize: 50, color: Colors.white),
+                  hintStyle: TextStyle(fontSize: 50, color:Pallete.whiteColor),
                   border: InputBorder.none,
                 ),
                 maxLines: 1,
               ),
             ),
           
-           Container(
-                width: MediaQuery.of(context).size.width,
-                decoration: const BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(30),
-                        topRight: Radius.circular(30))),
-                child: Column(children: [
-                  SizedBox(
-                    height: 40,
-                  ),
-                  Align(
-                      alignment: Alignment.centerLeft,
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 18.0),
-                        child: Text('Enter the bank name:',
-                            style: TextStyle(
-                                color: Color.fromARGB(255, 32, 30, 30),
-                                fontSize: 20,
-                                fontWeight: FontWeight.w400)),
-                      )),
-                      SizedBox(height: 30,),
-                 
-                  CustomTextFieldApp(
-                      hintText: 'Bank name',
-                      enabledBorderColor: Color.fromARGB(255, 102, 102, 102),
-                      backgroundColor: Colors.white,
-                      controller: bankName,
-                      focusedBOrderColor: const Color.fromRGBO(98, 63, 255, 1)),
-                      SizedBox(
-                    height: 20,
-                  ),
+           Expanded(
+             child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  decoration: const BoxDecoration(
+                      color:Pallete.whiteColor,
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(30),
+                          topRight: Radius.circular(30))),
+                  child: Column(children: [
+                    SizedBox(
+                      height: 40,
+                    ),
+                    Align(
+                        alignment: Alignment.centerLeft,
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 20.0),
+                          child: Text('Enter the bank name:',
+                              style: TextStyle(
+                                  color: Pallete.backgroundColor,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w500)),
+                        )),
+                        SizedBox(height: 40,),
+                   
+                    CustomTextFieldApp(
+                        hintText: 'Bank name',
+                        enabledBorderColor: Pallete.greyColor,
+                        backgroundColor: Pallete.whiteColor,
+                        controller: bankName,
+                        focusedBOrderColor:Pallete.purpleColor),
+                        SizedBox(
+                      height: 40,
+                    ),
+                        
+                    Align(
+                        alignment: Alignment.centerLeft,
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 20.0),
+                          child: Text('Any description for this bank?',
+                              style: TextStyle(
+                                  color:Pallete.backgroundColor,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w400)),
+                        )),
+                  SizedBox(height: 20,),
+                    CustomTextFieldApp(
+                        hintText: 'Enter description',
+                        enabledBorderColor: Pallete.greyColor,
+                        backgroundColor: Pallete.whiteColor,
+                        controller: addDescription!,
+                        focusedBOrderColor: Pallete.purpleColor),
+                        SizedBox(height: 40,),
+                       CustomButton(backgroundColor: Pallete.purpleColor , onTap: (){
+                        addBankNameDownit();
                       
-                  Align(
-                      alignment: Alignment.centerLeft,
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 18.0),
-                        child: Text('Any description for this bank?',
-                            style: TextStyle(
-                                color: Color.fromARGB(255, 32, 30, 30),
-                                fontSize: 20,
-                                fontWeight: FontWeight.w300)),
-                      )),
-                SizedBox(height: 30,),
-                  CustomTextFieldApp(
-                      hintText: 'Enter description',
-                      enabledBorderColor: Color.fromARGB(255, 102, 102, 102),
-                      backgroundColor: Colors.white,
-                      controller: addDescription!,
-                      focusedBOrderColor: const Color.fromRGBO(98, 63, 255, 1)),
-                      SizedBox(height: 30,),
-                     CustomButton(backgroundColor: const Color.fromRGBO(98, 63, 255, 1) , onTap: (){
-                      addBankNameDownit();
-                      Navigator.push(context, AddStateMessage.route());
-                     }, text: 'Add account', textColor: Colors.white),
-                     SizedBox(height: 50,)
-                ]),
-              ),
+                       }, text: 'Add account', textColor:Pallete.whiteColor),
+                       SizedBox(height: 50,)
+                  ]),
+                ),
+           ),
           
           ],
         ),

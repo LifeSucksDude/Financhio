@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:financhio/Theme/pallete.dart';
 import 'package:financhio/constants/imageconstant.dart';
 import 'package:flutter/material.dart';
 
@@ -9,7 +10,7 @@ class IntroPage1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.deepOrangeAccent,
+      color:Pallete.purpleColor,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

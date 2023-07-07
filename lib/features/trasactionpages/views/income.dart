@@ -5,12 +5,14 @@ import 'package:financhio/common/widegets/dropdownpage.dart';
 import 'package:financhio/common/widegets/forAppOverall/customTextFieldApp.dart';
 import 'package:financhio/features/trasactionpages/controller/addtransactionController.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../common/utils/utils.dart';
 import '../../../common/widegets/forAppOverall/customButton.dart';
 
 class AddIncome extends ConsumerStatefulWidget {
+  static route()=> MaterialPageRoute(builder: (context)=>const AddIncome());
   const AddIncome({super.key});
 
   @override
@@ -47,19 +49,19 @@ class _AddIncomeState extends ConsumerState<AddIncome> {
  }
 
   void storeTheTransaction(){
-    String amount=addIncome.text.trim();
+    double amount = double.tryParse(addIncome.text) ?? 0.0;
     String type='Income';
-    String bankName='$selectedBank'.trim();
+    String? bankName=selectedBank;
     String category='$selectedCategory'.trim();
     String description=addDescription.text.trim();
     File? attachment=image;
     DateTime dateTime = DateTime.now();
   String datetimeString = dateTime.toString();
   
-    if(amount.isNotEmpty  && bankName.isNotEmpty){
+    if(amount!=0.0  && bankName!=null){
    ref.read(addTransactionProvider).addTransaction(type, attachment, context, category, bankName, datetimeString, description, amount);}
    else{
-    showSnackBar(context: context, content: "Can not have amount, category, bankname as empty strings");
+    showSnackBar(context: context, content: "Can not have amount as 0.0, category, bankname as empty strings");
    }
   
 
@@ -81,9 +83,14 @@ class _AddIncomeState extends ConsumerState<AddIncome> {
           style: TextStyle(
               fontSize: 18, color: Colors.white, fontWeight: FontWeight.w600),
         ),
-        leading: Icon(
-          Icons.arrow_back_ios_new,
-          color: Colors.white,
+        leading: GestureDetector(
+          onTap: (){
+            Navigator.pop(context);
+          },
+          child: Icon(
+            Icons.arrow_back_ios_new,
+            color: Colors.white,
+          ),
         ),
         backgroundColor: Colors.green,
       ),
@@ -112,6 +119,10 @@ class _AddIncomeState extends ConsumerState<AddIncome> {
             child: TextField(
               style: TextStyle(fontSize: 50, color: Colors.white),
               controller: addIncome,
+               keyboardType: TextInputType.numberWithOptions(decimal: true),
+  inputFormatters: <TextInputFormatter>[
+    FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
+  ],
               decoration: InputDecoration(
                 hintText: '0.00',
                 hintStyle: TextStyle(fontSize: 50, color: Colors.white),

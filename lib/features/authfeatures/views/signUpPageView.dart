@@ -1,4 +1,5 @@
 import 'package:financhio/Theme/pallete.dart';
+import 'package:financhio/common/widegets/forAppOverall/customTextFieldApp.dart';
 import 'package:financhio/constants/imageconstant.dart';
 import 'package:financhio/constants/uiconstant.dart';
 import 'package:financhio/common/widegets/forLogin/custextf.dart';
@@ -42,7 +43,7 @@ void dotheFunctionSignUp(){
   Widget build(BuildContext context) {
     return  Scaffold(
       appBar: AppBar(
-        title: Text('Financhio'),
+        title: Text('Financhio',style: TextStyle(color: Pallete.backgroundColor,fontSize: 30),),
         centerTitle: true,
       ),
       backgroundColor:Pallete.whiteColor ,
@@ -54,22 +55,28 @@ void dotheFunctionSignUp(){
            mainAxisAlignment: MainAxisAlignment.center,
             children: [
             const   SizedBox(height: 80,),
-              AuthTextField(
+              CustomTextFieldApp(
                         controller: nameController,
-                        text: 'Name',
+                        hintText: 'Name',
+                        enabledBorderColor: Pallete.greyColor,
+                        focusedBOrderColor: Pallete.purpleColor,
+                        backgroundColor: Pallete.whiteColor,
                       ),
                       const SizedBox(
                         height: 40,
                       ),
-               AuthTextField(
+               CustomTextFieldApp(
                         controller: emailController,
-                        text: 'Email',
+                       hintText: 'Email',
+                       enabledBorderColor: Pallete.greyColor,
+                       focusedBOrderColor: Pallete.purpleColor,
+                       backgroundColor: Pallete.whiteColor,
                       ),
                       const SizedBox(
                         height: 40,
                       ),
-                      AuthTextField(
-                          controller: passwordController, text: 'Password'),
+                      CustomTextFieldApp(
+                          controller: passwordController, hintText: 'Password',enabledBorderColor: Pallete.greyColor,backgroundColor: Pallete.whiteColor,focusedBOrderColor: Pallete.purpleColor,),
                       SizedBox(
                         height: 40,
                       ),
@@ -95,7 +102,7 @@ void dotheFunctionSignUp(){
                             TextSpan(
                               text: " Login",
                               style: const TextStyle(
-                                  color: Color.fromARGB(255, 214, 15, 249), fontSize: 16),
+                                  color: Pallete.purpleColor, fontSize: 16),
                               recognizer: TapGestureRecognizer()
                                 ..onTap = () {
                                   Navigator.push(context, LoginPageView.route());

@@ -38,10 +38,13 @@ class AuthController {
   void LoginUser(String email,String password,BuildContext context){
     authRepository.SignInUser(email, password, context);
   }
-  void saveUserDataToFirebase(BuildContext context,String name,File profilePic){
-    authRepository.SaveUserDataToFirestore(name: name, profilePic: profilePic, ref: ref, context: context);
+  void saveUserDataToFirebase(BuildContext context,String? name,File? profilePic){
+    authRepository.SaveUserDataToFirestore(name: name!, profilePic: profilePic, ref: ref, context: context);
   }
-  void addBankName(BuildContext context,String bankName,String description,String currBalance){
+  void addBankName(BuildContext context,String bankName,String description,double currBalance){
     authRepository.addBankCollection(bankName, description,currBalance,context);
+  }
+  void updateInfo(BuildContext context,String? name,File? photoUrl){
+    authRepository.updateUserDataInFirestore(name: name, profilePic:photoUrl , ref: ref, context: context);
   }
 }

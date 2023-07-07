@@ -1,3 +1,4 @@
+import 'package:financhio/Theme/pallete.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constants/imageconstant.dart';
@@ -7,7 +8,7 @@ class IntroPage3 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Color.fromARGB(255, 255, 153, 85),
+      color: Pallete.redColor,
       child:
       Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -20,7 +21,7 @@ class IntroPage3 extends StatelessWidget {
           width: 180,
             decoration: BoxDecoration(
           image: 
-          DecorationImage(image:AssetImage(ImageConstants.page3Intro))
+          DecorationImage(image:AssetImage(ImageConstants.page3Intro,),fit: BoxFit.fill)
         )),
         SizedBox(height: 100,),
         Padding(

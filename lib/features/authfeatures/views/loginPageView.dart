@@ -1,3 +1,4 @@
+import 'package:financhio/common/widegets/forAppOverall/customTextFieldApp.dart';
 import 'package:financhio/features/authfeatures/views/signUpPageView.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -38,7 +39,7 @@ class _LoginPageViewState extends ConsumerState<LoginPageView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Financhio'),
+        title:Text('Financhio',style: TextStyle(color: Pallete.backgroundColor,fontSize: 30),),
       ),
       
     body:  SingleChildScrollView(
@@ -50,15 +51,20 @@ class _LoginPageViewState extends ConsumerState<LoginPageView> {
             children: [
             const   SizedBox(height: 80,),
               
-               AuthTextField(
+              CustomTextFieldApp(
                         controller: emailController,
-                        text: 'Email',
+                        hintText: 'Email',
+                         enabledBorderColor: Pallete.greyColor,
+                        focusedBOrderColor: Pallete.purpleColor,
+                        backgroundColor: Pallete.whiteColor,
                       ),
                       const SizedBox(
                         height: 40,
                       ),
-                      AuthTextField(
-                          controller: passwordController, text: 'Password'),
+                      CustomTextFieldApp(
+                          controller: passwordController, hintText: 'Password', enabledBorderColor: Pallete.greyColor,
+                        focusedBOrderColor: Pallete.purpleColor,
+                        backgroundColor: Pallete.whiteColor,),
                       SizedBox(
                         height: 40,
                       ),
@@ -84,7 +90,7 @@ class _LoginPageViewState extends ConsumerState<LoginPageView> {
                             TextSpan(
                               text: " Sign Up",
                               style: const TextStyle(
-                                  color: Color.fromARGB(255, 214, 15, 249), fontSize: 16),
+                                  color: Pallete.purpleColor, fontSize: 16),
                               recognizer: TapGestureRecognizer()
                                 ..onTap = () {
                                   Navigator.push(context,SignUpPageView.route());

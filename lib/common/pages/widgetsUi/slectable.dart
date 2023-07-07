@@ -18,18 +18,18 @@ class SelectableItem extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        height: 34,
-        width: 90,
-        padding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+        height: 24,
+        width: 80,
+       // padding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
         decoration: BoxDecoration(
-          color: isSelected ?Pallete.paleColor : Colors.transparent,
+          color: isSelected ?Pallete.paleColor : Colors.white,
           borderRadius: BorderRadius.circular(16),
         ),
         child: Center(
           child: Text(
             label,
             style: TextStyle(
-              color:  Pallete.greyColor,
+              color:  Pallete.backgroundColor,
               fontWeight: FontWeight.bold,
             ),
           ),

@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:financhio/features/authfeatures/repositoris/auth_repo.dart';
 import 'package:financhio/features/trasactionpages/repository/addTransactionRepo.dart';
+import 'package:financhio/models/bankModel.dart';
+import 'package:financhio/models/transaction.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -18,16 +20,22 @@ class AddTransactionController {
 
   AddTransactionController(
       {required this.addTransactionRepo, required this.ref});
-      
+
   void ReadAllSms() {
     addTransactionRepo.getAllSms();
   }
-  Future<List<String> >addBankList()async{
-    return await
-    addTransactionRepo.getBanksList();
+
+  Future<List<String>> addBankList() async {
+    return await addTransactionRepo.getBanksList();
   }
 
- 
+  Future<List<String?>>? selectBankForGod(BuildContext context) {
+    return addTransactionRepo.selectBankNow(context);
+  }
+
+  Stream<BankModel> gettheBankDataPlease(String bankName) {
+    return addTransactionRepo.getBankData(bankName);
+  }
 
   void addTransaction(
       String type,
@@ -37,7 +45,7 @@ class AddTransactionController {
       String bankName,
       String datetime,
       String description,
-      String amount) {
+      double amount) {
     addTransactionRepo.doTheTransaction(
         type: type,
         attachment: attachment,
@@ -48,5 +56,17 @@ class AddTransactionController {
         datetime: datetime,
         description: description,
         amount: amount);
+  }
+  Stream<List<TransactionModel>>QueryListGen(String period,String bankName){
+   return addTransactionRepo.getAllTransactionForPeriod(period, bankName);
+  }
+  Stream<List<TransactionModel>>filterOutList(String bankName,String filter,String sort){
+    return addTransactionRepo.getAllTransactionForFiltered(bankName, filter, sort);
+  }
+  void deleteTransactionBank(String tuid,String bankName){
+    ref.watch(addTransactionRepoProvider).deleteTransaction(tuid,bankName);
+  }
+  void logoutUserforGod(String uid,BuildContext context){
+    ref.watch(addTransactionRepoProvider).logoutUser(uid, context);
   }
 }

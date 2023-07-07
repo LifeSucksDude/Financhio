@@ -1,13 +1,15 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:flutter/material.dart';
+import 'dart:html';
 
-class CustomTextFieldApp extends StatelessWidget {
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+
+class NumCustomTextFieldApp extends StatelessWidget {
 final   String hintText;
  final Color enabledBorderColor;
   final Color focusedBOrderColor;
  final  Color backgroundColor;
   final TextEditingController controller;
-   CustomTextFieldApp({
+   NumCustomTextFieldApp({
     Key? key,
     required this.hintText,
     required this.enabledBorderColor,
@@ -23,8 +25,13 @@ final   String hintText;
           height: 56,
           child: Center(
             child: TextFormField(
+              
               autocorrect: false,
             controller: controller,
+             keyboardType: TextInputType.numberWithOptions(decimal: true),
+            inputFormatters: <TextInputFormatter>[
+              FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}'))
+            ],
             decoration: InputDecoration(
                focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(16),
